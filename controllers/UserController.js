@@ -3,6 +3,10 @@ const sendEmail = require("../sendEmail.js");
 const jwt = require("jsonwebtoken");
 
 class UserController {
+	async login(req, res) {}
+
+	async logout(req, res) {}
+
 	async registerUser(req, res) {
 		const { email, password } = req.body;
 
@@ -42,6 +46,7 @@ class UserController {
 		sendEmail(email, "Confirm email", link);
 		res.send("send");
 	}
+
 	async confirmUser(req, res) {
 		const { id, token } = req.params;
 
@@ -68,6 +73,7 @@ class UserController {
 			res.send(error.message);
 		}
 	}
+
 	async sendForgotPassword(req, res) {
 		const { email } = req.body;
 
@@ -92,6 +98,7 @@ class UserController {
 		sendEmail(email, "change password", link);
 		res.send("send");
 	}
+
 	async changeForgotPassword(req, res) {
 		const { id, token } = req.params;
 		const { password, password2 } = req.body;
@@ -119,6 +126,10 @@ class UserController {
 			res.send(error.message);
 		}
 	}
+
+	async changePassword(req, res) {}
+
+	async deleteUser(req, res) {}
 }
 
 module.exports = new UserController();
