@@ -13,7 +13,7 @@ exports.up = function (knex) {
 			.onDelete("CASCADE");
 		table.string("name_goal").notNullable();
 		table.decimal("sum_goal").notNullable();
-		table.decimal("save_sum").notNullable();
+		table.decimal("sum_save").notNullable();
 		table.date("date_end").notNullable();
 		table.timestamp("created_at").defaultTo(knex.raw("CURRENT_TIMESTAMP"));
 		table
