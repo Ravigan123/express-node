@@ -19,6 +19,7 @@ class CourseController {
 		}
 		res.status(200).json(newCourse);
 	}
+
 	async getCourse(req, res) {
 		const course = await Course.query()
 			.select("courses.name_course", "courses.code")
@@ -28,7 +29,7 @@ class CourseController {
 
 		res.status(200).json(course);
 	}
-	async updateCourse(req, res) {}
+
 	async deleteCourse(req, res) {
 		const courseDelete = await CourseUser.query()
 			.delete()

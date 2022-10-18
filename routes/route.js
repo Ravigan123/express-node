@@ -41,7 +41,6 @@ router.delete("/cel-oszczednosci/:id", SaveGoalController.deleteSaveGoal);
 router.post("/kurs", CourseController.addCourse);
 router.get("/kurs", CourseController.getCourse);
 // router.get("/kurs/:id", CourseController.getCourse);
-router.put("/kurs/:id", CourseController.updateCourse);
 router.delete("/kurs/:id", CourseController.deleteCourse);
 
 module.exports = router;

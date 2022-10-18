@@ -24,6 +24,7 @@ class SaveGoalController {
 		}
 		res.status(200).json(newGoal);
 	}
+
 	async getAllSaveGoal(req, res) {
 		const SaveGoals = await SaveGoal.query()
 			.select("name_goal", "sum_goal", "save_sum", "date_end", "created_at")
@@ -31,6 +32,7 @@ class SaveGoalController {
 
 		res.status(200).json(SaveGoals);
 	}
+
 	async getOneSaveGoal(req, res) {
 		const SaveGoalOne = await SaveGoal.query()
 			.select("name_goal", "sum_goal", "save_sum", "date_end", "created_at")
@@ -39,6 +41,7 @@ class SaveGoalController {
 
 		res.status(200).json(SaveGoalOne);
 	}
+
 	async updateSaveGoal(req, res) {
 		let updateGoal;
 
@@ -65,6 +68,7 @@ class SaveGoalController {
 		}
 		res.status(201).json(updateGoal);
 	}
+
 	async deleteSaveGoal(req, res) {
 		const SaveGoalDelete = await SaveGoal.query()
 			.delete()
