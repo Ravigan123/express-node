@@ -1,0 +1,18 @@
+insert into courses values('2','euro','EUR', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('3','frank szwajcarski','CHF', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('4','funt szterling','GBP', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('5','bat (Tajlandia)','THB', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('6','dolar australijski','AUD', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('7','dolar australijski','AUD', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('8','dolar hongkoński','HKD', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('9','dolar kanadyjski','CAD', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('10','dolar nowozelandzki','NZD', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('11','dolar singapurski','SGD', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('12','forint węgierski','HUF', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('13','hrywna ukraińska','UAH', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('14','jen japoński','JPY', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('14','jen japoński','JPY', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('14','jen japoński','JPY', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('14','jen japoński','JPY', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('14','jen japoński','JPY', '2022-10-18 08:14:08', '2022-10-18 08:14:08');
+insert into courses values('14','jen japoński','JPY', '2022-10-18 08:14:08', '2022-10-18 08:14:08');

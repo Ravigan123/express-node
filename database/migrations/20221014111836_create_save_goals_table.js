@@ -11,8 +11,8 @@ exports.up = function (knex) {
 			.references("users.id")
 			.onUpdate("CASCADE")
 			.onDelete("CASCADE");
-		table.string("name").notNullable();
-		table.decimal("sum").notNullable();
+		table.string("name_goal").notNullable();
+		table.decimal("sum_goal").notNullable();
 		table.decimal("save_sum").notNullable();
 		table.date("date_end").notNullable();
 		table.timestamp("created_at").defaultTo(knex.raw("CURRENT_TIMESTAMP"));

@@ -38,10 +38,10 @@ router.delete("/cel-oszczednosci/:id", SaveGoalController.deleteSaveGoal);
 
 //kursy walut
 
-router.post("/kursy", CourseController.addCourse);
-router.get("/kursy", CourseController.getCourse);
-// router.get("/kursy/:id", CourseController.getCourse);
-router.put("/kursy/:id", CourseController.updateCourse);
-router.delete("/kursy/:id", CourseController.deleteCourse);
+router.post("/kurs", CourseController.addCourse);
+router.get("/kurs", CourseController.getCourse);
+// router.get("/kurs/:id", CourseController.getCourse);
+router.put("/kurs/:id", CourseController.updateCourse);
+router.delete("/kurs/:id", CourseController.deleteCourse);
 
 module.exports = router;
