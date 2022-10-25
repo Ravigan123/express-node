@@ -8,7 +8,7 @@ class SaveGoalController {
 		const id_user = 1;
 		const name_goal = req.body.name;
 		const sum_goal = parseFloat(req.body.sum);
-		const save_sum = parseFloat(req.body.save_sum);
+		const sum_save = parseFloat(req.body.sum_save);
 		const date_end = req.body.date;
 
 		try {
@@ -16,7 +16,7 @@ class SaveGoalController {
 				id_user,
 				name_goal,
 				sum_goal,
-				save_sum,
+				sum_save,
 				date_end,
 			});
 		} catch (err) {
