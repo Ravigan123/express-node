@@ -1,23 +1,23 @@
-const Course = require("../models/Course")
-const CourseUser = require("../models/CourseUser")
+const Course = require("../models/Course");
+const CourseUser = require("../models/CourseUser");
 
 class CourseController {
 	async addCourse(req, res) {
-		let newCourse
+		let newCourse;
 
 		// const id_user = parseInt(req.session.user);
-		const id_user = 1
-		const id_course = parseInt(req.body.course)
+		const id_user = 1;
+		const id_course = parseInt(req.body.course);
 
 		try {
 			newCourse = await CourseUser.query().insert({
 				id_user,
 				id_course,
-			})
+			});
 		} catch (err) {
-			return res.status(422).json({ message: err.message })
+			return res.status(422).json({ message: err.message });
 		}
-		res.status(200).json(newCourse)
+		res.status(200).json(newCourse);
 	}
 
 	async getCourse(req, res) {
@@ -25,19 +25,19 @@ class CourseController {
 			.select("courses.name_course", "courses.code")
 			.innerJoin("course_users", "courses.id", "course_users.id_course")
 			.innerJoin("users", "users.id", "course_users.id_user")
-			.where("id_user", 1)
+			.where("id_user", 1);
 
-		res.status(200).json(course)
+		res.status(200).json(course);
 	}
 
 	async deleteCourse(req, res) {
 		const courseDelete = await CourseUser.query()
 			.delete()
 			.where("id_user", 1)
-			.where("id", req.params.id)
+			.where("id", req.params.id);
 
-		res.status(200).json(courseDelete)
+		res.status(200).json(courseDelete);
 	}
 }
 
-module.exports = new CourseController()
+module.exports = new CourseController();
