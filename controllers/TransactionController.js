@@ -12,21 +12,43 @@ class TransactionController {
 		// 		.status(422)
 		// 		.json({ message: "The given device already exists" })
 
-		const id_user = parseInt(req.session.user);
+		// const id_user = parseInt(req.session.user);
+		const id_user = 3;
 		const id_category = parseInt(req.body.category);
-		const name = req.body.name;
+		Number.isInteger(id_category);
+		if (!Number.isInteger(id_category))
+			return res.status(401).json({ message: "zła kategoria" });
+
+		const name_transaction = req.body.name;
 		const type = parseInt(req.body.type);
-		const sum = parseFloat(req.body.sum);
+		if (!Number.isInteger(type))
+			return res
+				.status(401)
+				.json({ message: "Wartość nie jest liczbą całkowitą" });
+
+		const sum_transaction = parseFloat(req.body.sum);
+		if (sum_transaction.toString() == "NaN")
+			return res.status(401).json({ message: "Wartość nie jest liczbą" });
+
 		const date = req.body.date;
+		const unixTimeZero = Date.parse(date);
+		const d = new Date(unixTimeZero);
+
+		function dateIsValid(date) {
+			return date instanceof Date && !isNaN(date);
+		}
+
+		if (!dateIsValid(d))
+			return res.status(401).json({ message: "Podaj poprawną datę" });
 
 		let newTransaction;
 		try {
 			newTransaction = await Transaction.query().insert({
 				id_user,
 				id_category,
-				name,
+				name_transaction,
 				type,
-				sum,
+				sum_transaction,
 				date,
 			});
 		} catch (err) {
@@ -130,37 +152,85 @@ class TransactionController {
 	}
 
 	async getOneTransaction(req, res) {
-		const transaction = await Transaction.query()
-			.select("name", "type", "sum", "date", "created_at")
-			.where("id_user", req.session.user)
-			.where("id", req.params["id"]);
+		try {
+			const transaction = await Transaction.query().findOne({
+				id_user: req.session.user,
+				id: req.params["id"],
+			});
+		} catch (error) {
+			console.log(error);
+			res.send(error.message);
+		}
 
 		res.status(200).json(transaction);
 	}
 
 	async updateTransaction(req, res) {
 		const id = req.params.id;
-		const id_category = parseInt(req.body.category);
-		const name = req.body.name;
-		const type = parseInt(req.body.type);
-		const sum = parseFloat(req.body.sum);
-		const date = req.body.date;
 
 		let transaction;
 		try {
-			const transaction = await Transaction.query()
+			transaction = await Transaction.query().findOne({
+				id_user: req.session.user,
+				id: req.params["id"],
+			});
+		} catch (error) {
+			console.log(error);
+			res.send(error.message);
+		}
+
+		if (transaction === undefined)
+			return res.status(401).json({ message: "Błąd podczas aktualizacji" });
+
+		const id_category = parseInt(req.body.category);
+		Number.isInteger(id_category);
+		if (!Number.isInteger(id_category))
+			return res.status(401).json({ message: "zła kategoria" });
+
+		const name_transaction = req.body.name;
+		const type = parseInt(req.body.type);
+		if (!Number.isInteger(type))
+			return res
+				.status(401)
+				.json({ message: "Wartość nie jest liczbą całkowitą" });
+
+		const sum_transaction = parseFloat(req.body.sum);
+		if (sum_transaction.toString() == "NaN")
+			return res.status(401).json({ message: "Wartość nie jest liczbą" });
+
+		const date = req.body.date;
+		const unixTimeZero = Date.parse(date);
+		const d = new Date(unixTimeZero);
+
+		function dateIsValid(date) {
+			return date instanceof Date && !isNaN(date);
+		}
+
+		if (!dateIsValid(d))
+			return res.status(401).json({ message: "Podaj poprawną datę" });
+
+		let updatedTransaction;
+		try {
+			const updatedTransaction = await Transaction.query()
 				.findById(id)
-				.patch({ id_category, name, type, sum, date });
+				.patch({ id_category, name_transaction, type, sum_transaction, date });
 		} catch (err) {
 			return res.status(422).json({ message: err.message });
 		}
 
-		res.status(201).json(transaction);
+		res.status(201).json(updatedTransaction);
 	}
 
 	async deleteTransaction(req, res) {
 		const id = req.params.id;
-		const transaction = await Transaction.query().deleteById(id);
+		try {
+			const transaction = await Transaction.query()
+				.deleteById(id)
+				.where("id_user", req.session.user);
+		} catch (error) {
+			console.log(error);
+			res.send(error.message);
+		}
 		res.sendStatus(204);
 	}
 }

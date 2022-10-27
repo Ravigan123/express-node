@@ -25,6 +25,7 @@
 		"node-cron": "^3.0.2",
 		"nodemailer": "^6.7.8",
 		"nodemon": "^2.0.20",
-		"objection": "^3.0.1"
+		"objection": "^3.0.1",
+		"password-validator": "^5.3.0"
 	}
 }

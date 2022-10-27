@@ -18,7 +18,6 @@ exports.up = function (knex) {
 			.onUpdate("CASCADE")
 			.onDelete("CASCADE");
 		table.string("name_transaction").notNullable();
-		table.boolean("type").notNullable();
 		table.decimal("sum_transaction").notNullable();
 		table.date("date").notNullable();
 		table.timestamp("created_at").defaultTo(knex.raw("CURRENT_TIMESTAMP"));

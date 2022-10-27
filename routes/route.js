@@ -8,39 +8,39 @@ const CourseController = require("../controllers/CourseController");
 
 //user
 
-router.post("/logowanie", UserController.login);
-router.get("/wylogowanie", UserController.logout);
-router.post("/rejestracja", UserController.registerUser);
-router.get("/potwierdz/:id:token", UserController.confirmUser);
-router.post("/zapomnialem-hasla", UserController.sendForgotPassword);
-router.put("/resetu-haslo/:id:token", UserController.changeForgotPassword);
-router.put("/zmien-haslo/:id", UserController.changePassword);
-router.delete("/uzytkownik/:id", UserController.deleteUser);
+router.post("/login", UserController.login);
+router.get("/logout", UserController.logout);
+router.post("/register", UserController.registerUser);
+router.get("/confirm/:id:token", UserController.confirmUser);
+router.post("/forgot-password", UserController.sendForgotPassword);
+router.put("/reset-password/:id:token", UserController.changeForgotPassword);
+router.put("/change-password", UserController.changePassword);
+router.delete("/user", UserController.deleteUser);
 //opcjonalne
 // router.put("/role/:id", UserController.changeRole);
 // router.put("/active/:id", UserController.changeActive);
 // router.put("/change-email/:id", UserController.changeEmail);
 
 //transaction
-router.post("/transakcja", TransactionController.addTransaction);
-router.get("/transakcja", TransactionController.getAllTransaction);
-router.get("/transakcja/:id", TransactionController.getOneTransaction);
-router.put("/transakcja/:id", TransactionController.updateTransaction);
-router.delete("/transakcja/:id", TransactionController.deleteTransaction);
+router.post("/transaction", TransactionController.addTransaction);
+router.get("/transaction", TransactionController.getAllTransaction);
+router.get("/transaction/:id", TransactionController.getOneTransaction);
+router.put("/transaction/:id", TransactionController.updateTransaction);
+router.delete("/transaction/:id", TransactionController.deleteTransaction);
 
 //save goal
 
-router.post("/cel-oszczednosci", SaveGoalController.addSaveGoal);
-router.get("/cel-oszczednosci", SaveGoalController.getAllSaveGoal);
-router.get("/cel-oszczednosci/:id", SaveGoalController.getOneSaveGoal);
-router.put("/cel-oszczednosci/:id", SaveGoalController.updateSaveGoal);
-router.delete("/cel-oszczednosci/:id", SaveGoalController.deleteSaveGoal);
+router.post("/save-goal", SaveGoalController.addSaveGoal);
+router.get("/save-goal", SaveGoalController.getAllSaveGoal);
+router.get("/save-goal/:id", SaveGoalController.getOneSaveGoal);
+router.put("/save-goal/:id", SaveGoalController.updateSaveGoal);
+router.delete("/save-goal/:id", SaveGoalController.deleteSaveGoal);
 
 //kursy walut
 
-router.post("/kurs", CourseController.addCourse);
-router.get("/kurs", CourseController.getCourse);
+router.post("/course", CourseController.addCourse);
+router.get("/course", CourseController.getCourse);
 // router.get("/kurs/:id", CourseController.getCourse);
-router.delete("/kurs/:id", CourseController.deleteCourse);
+router.delete("/course/:id", CourseController.deleteCourse);
 
 module.exports = router;
