@@ -1,4 +1,4 @@
-const Transaction = require("../models/Transaction");
+const Transaction = require("../models/Transaction")
 
 class TransactionController {
 	async addTransaction(req, res) {
@@ -13,35 +13,35 @@ class TransactionController {
 		// 		.json({ message: "The given device already exists" })
 
 		// const id_user = parseInt(req.session.user);
-		const id_user = 3;
-		const id_category = parseInt(req.body.category);
-		Number.isInteger(id_category);
+		const id_user = 3
+		const id_category = parseInt(req.body.category)
+		Number.isInteger(id_category)
 		if (!Number.isInteger(id_category))
-			return res.status(401).json({ message: "zła kategoria" });
+			return res.status(401).json({ message: "zła kategoria" })
 
-		const name_transaction = req.body.name;
-		const type = parseInt(req.body.type);
+		const name_transaction = req.body.name
+		const type = parseInt(req.body.type)
 		if (!Number.isInteger(type))
 			return res
 				.status(401)
-				.json({ message: "Wartość nie jest liczbą całkowitą" });
+				.json({ message: "Wartość nie jest liczbą całkowitą" })
 
-		const sum_transaction = parseFloat(req.body.sum);
+		const sum_transaction = parseFloat(req.body.sum)
 		if (sum_transaction.toString() == "NaN")
-			return res.status(401).json({ message: "Wartość nie jest liczbą" });
+			return res.status(401).json({ message: "Wartość nie jest liczbą" })
 
-		const date = req.body.date;
-		const unixTimeZero = Date.parse(date);
-		const d = new Date(unixTimeZero);
+		const date = req.body.date
+		const unixTimeZero = Date.parse(date)
+		const d = new Date(unixTimeZero)
 
 		function dateIsValid(date) {
-			return date instanceof Date && !isNaN(date);
+			return date instanceof Date && !isNaN(date)
 		}
 
 		if (!dateIsValid(d))
-			return res.status(401).json({ message: "Podaj poprawną datę" });
+			return res.status(401).json({ message: "Podaj poprawną datę" })
 
-		let newTransaction;
+		let newTransaction
 		try {
 			newTransaction = await Transaction.query().insert({
 				id_user,
@@ -50,12 +50,12 @@ class TransactionController {
 				type,
 				sum_transaction,
 				date,
-			});
+			})
 		} catch (err) {
-			return res.status(422).json({ message: err.message });
+			return res.status(422).json({ message: err.message })
 		}
 
-		res.status(201).json(newTransaction);
+		res.status(201).json(newTransaction)
 	}
 
 	// async getAllTransaction(req, res) {
@@ -91,25 +91,25 @@ class TransactionController {
 
 	async getAllTransaction(req, res) {
 		// miesieczny raport
-		const d = new Date();
+		const d = new Date()
 
-		const thisMonthFirstDay = new Date(d.getFullYear(), d.getMonth(), 1);
-		const nextMonthFirstDay = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+		const thisMonthFirstDay = new Date(d.getFullYear(), d.getMonth(), 1)
+		const nextMonthFirstDay = new Date(d.getFullYear(), d.getMonth() + 1, 1)
 
-		const lastMonthFirstDay = new Date(d.getFullYear(), d.getMonth() - 1, 1);
-		const twoMonthFirstDay = new Date(d.getFullYear(), d.getMonth() - 2, 1);
+		const lastMonthFirstDay = new Date(d.getFullYear(), d.getMonth() - 1, 1)
+		const twoMonthFirstDay = new Date(d.getFullYear(), d.getMonth() - 2, 1)
 
-		const FirstDayOfYear = new Date(d.getFullYear(), 0, 1);
-		const LastDayOfYear = new Date(d.getFullYear() + 1, 0, 1);
+		const FirstDayOfYear = new Date(d.getFullYear(), 0, 1)
+		const LastDayOfYear = new Date(d.getFullYear() + 1, 0, 1)
 
-		console.log(FirstDayOfYear); // ten miesiac
-		console.log(LastDayOfYear);
-		console.log("===========");
-		console.log(thisMonthFirstDay); // poprzedni miesiac
-		console.log(lastMonthFirstDay);
-		console.log("===========");
-		console.log(lastMonthFirstDay); // 2 miesiace temu
-		console.log(twoMonthFirstDay);
+		console.log(FirstDayOfYear) // ten miesiac
+		console.log(LastDayOfYear)
+		console.log("===========")
+		console.log(thisMonthFirstDay) // poprzedni miesiac
+		console.log(lastMonthFirstDay)
+		console.log("===========")
+		console.log(lastMonthFirstDay) // 2 miesiace temu
+		console.log(twoMonthFirstDay)
 
 		// wydatki pogrupowane po kategorii z obecnego miesiaca
 		const course = await Transaction.query()
@@ -120,7 +120,7 @@ class TransactionController {
 			.where("categories.type", 0)
 			.where("date", ">=", thisMonthFirstDay)
 			.where("date", "<", nextMonthFirstDay)
-			.groupBy("name_category");
+			.groupBy("name_category")
 
 		// wydatki pogrupowane po kategorii z obecnego roku
 		const course1 = await Transaction.query()
@@ -131,7 +131,7 @@ class TransactionController {
 			.where("categories.type", 0)
 			.where("date", ">=", FirstDayOfYear)
 			.where("date", "<", LastDayOfYear)
-			.groupBy("name_category");
+			.groupBy("name_category")
 
 		// wydatki pogrupowane po miesiacu z obecnego roku
 		const course3 = await Transaction.query()
@@ -142,9 +142,9 @@ class TransactionController {
 			.where("categories.type", 0)
 			.where("date", ">=", FirstDayOfYear)
 			.where("date", "<", LastDayOfYear)
-			.groupByRaw("MONTH(date)");
+			.groupByRaw("MONTH(date)")
 
-		res.status(200).json(course3);
+		res.status(200).json(course3)
 		// const d1 = new Date(year, monthIndex [, day [, hours [, minutes [, seconds [,
 		// milliseconds]]]]]);
 		// const d2 =new Date(value);
@@ -156,83 +156,83 @@ class TransactionController {
 			const transaction = await Transaction.query().findOne({
 				id_user: req.session.user,
 				id: req.params["id"],
-			});
+			})
 		} catch (error) {
-			console.log(error);
-			res.send(error.message);
+			console.log(error)
+			res.send(error.message)
 		}
 
-		res.status(200).json(transaction);
+		res.status(200).json(transaction)
 	}
 
 	async updateTransaction(req, res) {
-		const id = req.params.id;
+		const id = req.params.id
 
-		let transaction;
+		let transaction
 		try {
 			transaction = await Transaction.query().findOne({
 				id_user: req.session.user,
 				id: req.params["id"],
-			});
+			})
 		} catch (error) {
-			console.log(error);
-			res.send(error.message);
+			console.log(error)
+			res.send(error.message)
 		}
 
 		if (transaction === undefined)
-			return res.status(401).json({ message: "Błąd podczas aktualizacji" });
+			return res.status(401).json({ message: "Błąd podczas aktualizacji" })
 
-		const id_category = parseInt(req.body.category);
-		Number.isInteger(id_category);
+		const id_category = parseInt(req.body.category)
+		Number.isInteger(id_category)
 		if (!Number.isInteger(id_category))
-			return res.status(401).json({ message: "zła kategoria" });
+			return res.status(401).json({ message: "zła kategoria" })
 
-		const name_transaction = req.body.name;
-		const type = parseInt(req.body.type);
+		const name_transaction = req.body.name
+		const type = parseInt(req.body.type)
 		if (!Number.isInteger(type))
 			return res
 				.status(401)
-				.json({ message: "Wartość nie jest liczbą całkowitą" });
+				.json({ message: "Wartość nie jest liczbą całkowitą" })
 
-		const sum_transaction = parseFloat(req.body.sum);
+		const sum_transaction = parseFloat(req.body.sum)
 		if (sum_transaction.toString() == "NaN")
-			return res.status(401).json({ message: "Wartość nie jest liczbą" });
+			return res.status(401).json({ message: "Wartość nie jest liczbą" })
 
-		const date = req.body.date;
-		const unixTimeZero = Date.parse(date);
-		const d = new Date(unixTimeZero);
+		const date = req.body.date
+		const unixTimeZero = Date.parse(date)
+		const d = new Date(unixTimeZero)
 
 		function dateIsValid(date) {
-			return date instanceof Date && !isNaN(date);
+			return date instanceof Date && !isNaN(date)
 		}
 
 		if (!dateIsValid(d))
-			return res.status(401).json({ message: "Podaj poprawną datę" });
+			return res.status(401).json({ message: "Podaj poprawną datę" })
 
-		let updatedTransaction;
+		let updatedTransaction
 		try {
 			const updatedTransaction = await Transaction.query()
 				.findById(id)
-				.patch({ id_category, name_transaction, type, sum_transaction, date });
+				.patch({ id_category, name_transaction, type, sum_transaction, date })
 		} catch (err) {
-			return res.status(422).json({ message: err.message });
+			return res.status(422).json({ message: err.message })
 		}
 
-		res.status(201).json(updatedTransaction);
+		res.status(201).json(updatedTransaction)
 	}
 
 	async deleteTransaction(req, res) {
-		const id = req.params.id;
+		const id = req.params.id
 		try {
 			const transaction = await Transaction.query()
 				.deleteById(id)
-				.where("id_user", req.session.user);
+				.where("id_user", req.session.user)
 		} catch (error) {
-			console.log(error);
-			res.send(error.message);
+			console.log(error)
+			res.send(error.message)
 		}
-		res.sendStatus(204);
+		res.sendStatus(204)
 	}
 }
 
-module.exports = new TransactionController();
+module.exports = new TransactionController()
